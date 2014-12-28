@@ -36,6 +36,8 @@ class exports.Vector2
 		Math.sqrt(@dot(@))
 	distance: (v) ->
 		@copy().sub(v).length()
+	normalize: (v) ->
+	    @scale(1 / @length())
 	copy: () -> new Vector2 @x, @y
 	equals: (v) -> @x == v.x and @y == v.y
 	toString: () -> "Vector2 { x: #{@x} y: #{@y} }"

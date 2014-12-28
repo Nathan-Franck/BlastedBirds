@@ -14,6 +14,7 @@ class exports.Client
 			new SystemHandler([
 				new InputHandler()
 				new Time()
+				new Physics()
 				new UnitCommandSystem()
 				new BehaviourSystem()
 				new DestroySystem()

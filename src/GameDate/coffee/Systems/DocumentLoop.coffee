@@ -1,10 +1,6 @@
 class exports.DocumentLoop extends System
 	constructor: (@update) ->
-		document.addEventListener(
-			"focus" 
-			@mainLoop()
-			true
-		)
+		window.onfocus = @mainLoop
 		@mainLoop()
 	mainLoop: () =>
 		@update()

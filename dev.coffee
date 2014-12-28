@@ -1,0 +1,1 @@
+new (require './src/GameDate/coffee/Server').Server(1234, __dirname)

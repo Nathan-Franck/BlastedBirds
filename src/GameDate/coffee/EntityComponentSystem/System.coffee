@@ -1,0 +1,3 @@
+class exports.System
+	update: () ->
+		@

@@ -1,2 +1,0 @@
-#!/bin/bash
-node_modules/.bin/forever start -c node_modules/.bin/coffee app.coffee -o server.log

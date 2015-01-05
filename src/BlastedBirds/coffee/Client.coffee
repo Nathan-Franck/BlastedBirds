@@ -1,7 +1,7 @@
 class exports.Client
 	constructor: () ->
 
-		for i in [0..50]
+		for i in [0..500]
 			(new JigglyCheckmark())
 				.getOrCreate(Transform)
 				.position =

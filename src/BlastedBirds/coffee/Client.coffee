@@ -1,7 +1,7 @@
 class exports.Client
 	constructor: () ->
 
-		for i in [0..100]
+		for i in [0..50]
 			(new JigglyCheckmark())
 				.getOrCreate(Transform)
 				.position =
@@ -9,12 +9,14 @@ class exports.Client
 						Math.random() * 800
 						Math.random() * 600
 					)
-
+        
 		new DocumentLoop(
 			new SystemHandler([
 				new InputHandler()
 				new Time()
-				new Physics()
+				new FixedTimeSystemHandler([
+				    new Physics()
+				])
 				new UnitCommandSystem()
 				new BehaviourSystem()
 				new DestroySystem()

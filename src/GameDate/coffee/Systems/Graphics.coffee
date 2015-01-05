@@ -2,7 +2,7 @@ class exports.Graphics extends System
 
 	constructor: () ->
 		@images = {}
-		@stage = new PIXI.Stage 0x000000, true
+		@stage = new PIXI.Stage 0x7ec0ee, true
 		@renderer = PIXI.autoDetectRenderer()
 		@renderer.view.style.position = "absolute"
 		@renderer.view.style.top = "0px"

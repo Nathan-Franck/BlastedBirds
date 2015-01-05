@@ -2,20 +2,22 @@ class exports.Physics extends System
     constructor: () ->
         @gravity = new Vector2 0, 400
         @floor = 600
-    update: () ->
+        @wallNeg = 0
+        @wallPos = 600
+    fixedUpdate: () ->
         rigidbodies = Entity.getAll Rigidbody
         @moveAll rigidbodies
         @collideAll rigidbodies
         @floorCollide rigidbodies
     moveAll: (rigidbodies) ->
         for rigidbody in rigidbodies
-            rigidbody.velocity.add @gravity.copy().scale Time.deltaTime
-            rigidbody.entity.getTransform().position.add rigidbody.velocity.copy().scale Time.deltaTime
+            rigidbody.velocity.add @gravity.copy().scale Time.fixedDeltaTime
+            rigidbody.entity.getTransform().position.add rigidbody.velocity.copy().scale Time.fixedDeltaTime
     collideAll: (rigidbodies) ->
         length = rigidbodies.length
-        for i in [0..length-1]
+        for i in [0...length]
             a = rigidbodies[i]
-            if i < length-1 then for j in [i+1..length-1]
+            for j in [i+1...length]
                 b = rigidbodies[j]
                 @collide a, b
     collide: (a, b) ->
@@ -29,7 +31,8 @@ class exports.Physics extends System
             if distance < minDistance
                 distributeMovement = normal.copy().scale minDistance-distance
                 combinedVelocity = a.velocity.copy().sub b.velocity
-                distributeForce = (normal.copy().scale normal.dot combinedVelocity).scale -2
+                bounce = 2 - aCollider.material.bounceAbsorbtion * bCollider.material.bounceAbsorbtion
+                distributeForce = (normal.copy().scale normal.dot combinedVelocity).scale -bounce
                 combinedMass = a.mass + b.mass
                 aPiece = b.mass / combinedMass
                 bPiece = (1 - aPiece)
@@ -39,8 +42,14 @@ class exports.Physics extends System
                 b.velocity.add distributeForce.copy().scale -bPiece
     floorCollide: (rigidbodies) ->
         for rigidbody in rigidbodies
-            if rigidbody.entity.getTransform().position.y > @floor
-                rigidbody.velocity.y *= -.6
-                rigidbody.entity.getTransform().position.y = @floor
-        
-            
+            position = rigidbody.entity.getTransform().position
+            velocity = rigidbody.velocity
+            if position.y > @floor
+                velocity.y *= -.6
+                position.y = @floor
+            if position.x < @wallNeg
+                velocity.x *= -.6
+                position.x = @wallNeg
+            if position.x > @wallPos
+                velocity.x *= -.6
+                position.x = @wallPos

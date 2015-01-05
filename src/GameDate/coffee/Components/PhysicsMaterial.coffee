@@ -1,4 +1,4 @@
 class exports.PhysicsMaterial
     constructor: () ->
-        @bounciness = .6
+        @bounceAbsorbtion = .4
         @friction = .6

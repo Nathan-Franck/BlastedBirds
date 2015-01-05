@@ -8,3 +8,4 @@ class exports.FixedTimeSystemHandler extends System
         for i in [0...iterations]
             for system in @systems
                 system.fixedUpdate()
+        return

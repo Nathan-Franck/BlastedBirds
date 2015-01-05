@@ -13,6 +13,7 @@ class exports.Physics extends System
         for rigidbody in rigidbodies
             rigidbody.velocity.add @gravity.copy().scale Time.fixedDeltaTime
             rigidbody.entity.getTransform().position.add rigidbody.velocity.copy().scale Time.fixedDeltaTime
+        return
     collideAll: (rigidbodies) ->
         length = rigidbodies.length
         for i in [0...length]
@@ -20,6 +21,7 @@ class exports.Physics extends System
             for j in [i+1...length]
                 b = rigidbodies[j]
                 @collide a, b
+        return
     collide: (a, b) ->
         aCollider = a.entity.get Collider
         bCollider = b.entity.get Collider
@@ -40,6 +42,7 @@ class exports.Physics extends System
                 b.entity.getTransform().position.add distributeMovement.copy().scale -bPiece
                 a.velocity.add distributeForce.copy().scale aPiece
                 b.velocity.add distributeForce.copy().scale -bPiece
+        return
     floorCollide: (rigidbodies) ->
         for rigidbody in rigidbodies
             position = rigidbody.entity.getTransform().position
@@ -53,3 +56,4 @@ class exports.Physics extends System
             if position.x > @wallPos
                 velocity.x *= -.6
                 position.x = @wallPos
+        return
